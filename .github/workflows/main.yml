@@ -13,5 +13,5 @@ jobs:
       - name: Process SharePoint file
         run: |
           echo "Nuevo archivo detectado:"
-          echo "Owner: ${{ body.client_payload.Link }}"
+          echo "Owner: ${{ github.event.client_payload.client_payload.Link }}"
           # Aquí puedes agregar los comandos específicos que necesites ejecutar
