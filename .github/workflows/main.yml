@@ -1,0 +1,21 @@
+name: SharePoint File Trigger
+on:
+  repository_dispatch:
+    types: [sharepoint_file_added]
+
+jobs:
+  process-file:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Process SharePoint file
+        run: |
+          echo "Nuevo archivo detectado:"
+          echo "Owner: ${{ github.event.client_payload.10 }}"
+          echo "Nombre: ${{ github.event.client_payload.12 }}"
+          echo "Nombre: ${{ github.event.client_payload.13 }}"
+          echo "Nombre: ${{ github.event.client_payload.14 }}"
+          echo "Nombre: ${{ github.event.client_payload.15 }}"
+          # Aquí puedes agregar los comandos específicos que necesites ejecutar
