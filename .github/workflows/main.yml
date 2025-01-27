@@ -13,5 +13,9 @@ jobs:
       - name: Process SharePoint file
         run: |
           echo "Nuevo archivo detectado:"
-          echo "Owner: ${{ github.event.client_payload.client_payload.Link }}"
+          echo "OwnerRepo: ${{ github.event.repositoryOwner }}"
+          echo "NameRepo: ${{ github.event.repositoryName }}"
+          echo "Link: ${{ github.event.client_payload.Link }}"
+          echo "NameFile: ${{ github.event.client_payload.NameFile }}"
+          echo "NameFileExtension: ${{ github.event.client_payload.NameFileExtension }}"
           # Aquí puedes agregar los comandos específicos que necesites ejecutar
