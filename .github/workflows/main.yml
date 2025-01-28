@@ -11,6 +11,10 @@ jobs:
         uses: actions/checkout@v2
       
       - name: Process SharePoint file
+        env:
+          SHAREPOINT_NAME_FILE: ${{ github.event.client_payload.client_payload.NameFile }}
+          SHAREPOINT_NAME_FILE_EXTENSION: ${{ github.event.client_payload.client_payload.NameFileExtension }}
+          SHAREPOINT_LINK: ${{ github.event.client_payload.client_payload.Link }}
         run: |
           echo "Nuevo archivo detectado:"
           echo "OwnerRepo: ${{ github.event.repositoryOwner }}"
@@ -18,4 +22,5 @@ jobs:
           echo "Link: ${{ github.event.client_payload.Link }}"
           echo "NameFile: ${{ github.event.client_payload.NameFile }}"
           echo "NameFileExtension: ${{ github.event.client_payload.NameFileExtension }}"
-          # Aquí puedes agregar los comandos específicos que necesites ejecutar
+
+          python your_script.py "$SHAREPOINT_NAME_FILE" "$SHAREPOINT_NAME_FILE_EXTENSION" "$SHAREPOINT_LINK"
