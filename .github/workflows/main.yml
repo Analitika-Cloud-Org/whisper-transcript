@@ -12,9 +12,9 @@ jobs:
       
       - name: Process SharePoint file
         env:
-          SHAREPOINT_NAME_FILE: ${{ github.event.client_payload.client_payload.NameFile }}
-          SHAREPOINT_NAME_FILE_EXTENSION: ${{ github.event.client_payload.client_payload.NameFileExtension }}
-          SHAREPOINT_LINK: ${{ github.event.client_payload.client_payload.Link }}
+          SHAREPOINT_NAME_FILE: ${{ github.event.client_payload.NameFile }}
+          SHAREPOINT_NAME_FILE_EXTENSION: ${{ github.event.client_payload.NameFileExtension }}
+          SHAREPOINT_LINK: ${{ github.event.client_payload.Link }}
         run: |
           echo "Nuevo archivo detectado:"
           echo "OwnerRepo: ${{ github.event.repositoryOwner }}"
