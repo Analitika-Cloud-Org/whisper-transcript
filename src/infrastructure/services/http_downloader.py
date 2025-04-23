@@ -37,8 +37,18 @@ class HttpDownloader(FileDownloader):
                 'Accept': 'application/json'
             }
 
-            # Obtener la URL de descarga a través de Graph API
-            graph_url = f"https://graph.microsoft.com/v1.0/sites/root/drive/root:/{url.split('com/')[1]}"
+            # Obtener el sitio y la ruta del archivo
+            site_name = url.split('sharepoint.com/')[0].split('/')[-1]
+            file_path = url.split('sharepoint.com/')[1]
+
+            # Primero obtener el ID del sitio
+            site_url = f"https://graph.microsoft.com/v1.0/sites/{site_name}.sharepoint.com:/sites/{site_name}"
+            site_response = requests.get(site_url, headers=headers)
+            site_response.raise_for_status()
+            site_id = site_response.json()['id']
+
+            # Ahora obtener el archivo usando el ID del sitio
+            graph_url = f"https://graph.microsoft.com/v1.0/sites/{site_id}/drive/root:/{file_path}"
             response = requests.get(graph_url, headers=headers)
             response.raise_for_status()
 
