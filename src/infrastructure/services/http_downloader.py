@@ -16,7 +16,7 @@ class HttpDownloader(FileDownloader):
         )
 
         # Scope correcto para Microsoft Graph (que es donde configuraste los permisos)
-        scopes = ["https://graph.microsoft.com/.default"]
+        scopes = ["https://analitikacloud.sharepoint.com/.default"]
 
         # Primero intentamos obtener el token de la caché
         result = app.acquire_token_silent(scopes, account=None)
@@ -35,7 +35,7 @@ class HttpDownloader(FileDownloader):
             token = self.get_access_token()
             headers = {
                 'Authorization': f'Bearer {token}',
-                'Accept': 'application/json;odata=verbose'  # Importante para SharePoint
+                'Accept': '*/*'
             }
 
             # Si es una URL directa de SharePoint, la usamos directamente
