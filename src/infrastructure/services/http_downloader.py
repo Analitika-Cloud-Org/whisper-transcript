@@ -38,11 +38,12 @@ class HttpDownloader(FileDownloader):
             }
 
             # Obtener el sitio y la ruta del archivo
-            site_name = url.split('sharepoint.com/')[0].split('/')[-1]
-            file_path = url.split('sharepoint.com/')[1]
+            domain = url.split('://')[1].split('/')[0]  # analitikacloud.sharepoint.com
+            tenant = domain.split('.')[0]  # analitikacloud
+            file_path = '/'.join(url.split('sharepoint.com/')[1].split('/'))
 
             # Primero obtener el ID del sitio
-            site_url = f"https://graph.microsoft.com/v1.0/sites/{site_name}.sharepoint.com:/sites/{site_name}"
+            site_url = f"https://graph.microsoft.com/v1.0/sites/{tenant}.sharepoint.com"
             site_response = requests.get(site_url, headers=headers)
             site_response.raise_for_status()
             site_id = site_response.json()['id']
