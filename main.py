@@ -1,4 +1,3 @@
-
 import sys
 from src.infrastructure.services.whisper_transcriber import WhisperTranscriber
 from src.infrastructure.services.http_downloader import HttpDownloader
@@ -14,7 +13,8 @@ def main():
 
     # Initialize dependencies
     transcriber = WhisperTranscriber()
-    downloader = HttpDownloader()
+    sharepoint_token = input("Ingresa el token de SharePoint: ")
+    downloader = HttpDownloader(sharepoint_token)
     use_case = TranscribeAudioFileUseCase(transcriber, downloader)
 
     # Execute use case
