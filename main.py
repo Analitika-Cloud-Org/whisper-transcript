@@ -1,6 +1,10 @@
 import sys
+import os
+from dotenv import load_dotenv
 from src.infrastructure.services.whisper_transcriber import WhisperTranscriber
 from src.infrastructure.services.http_downloader import HttpDownloader
+
+load_dotenv()
 from src.application.use_cases.transcribe_audio_file import TranscribeAudioFileUseCase
 
 def main():
@@ -13,8 +17,15 @@ def main():
 
     # Initialize dependencies
     transcriber = WhisperTranscriber()
-    sharepoint_token = input("Ingresa el token de SharePoint: ")
-    downloader = HttpDownloader(sharepoint_token)
+    client_id = os.environ['SHAREPOINT_CLIENT_ID']
+    client_secret = os.environ['SHAREPOINT_CLIENT_SECRET']
+    tenant_id = os.environ['SHAREPOINT_TENANT_ID']
+
+    if not all([client_id, client_secret, tenant_id]):
+        print("Error: Asegúrate de configurar todas las variables de entorno en el archivo .env")
+        return
+
+    downloader = HttpDownloader(client_id, client_secret, tenant_id)
     use_case = TranscribeAudioFileUseCase(transcriber, downloader)
 
     # Execute use case

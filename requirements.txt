@@ -1,2 +1,4 @@
 openai-whisper
 requests
+msal
+python-dotenv
