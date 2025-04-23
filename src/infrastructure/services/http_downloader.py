@@ -15,7 +15,7 @@ class HttpDownloader(FileDownloader):
             client_credential=self.client_secret
         )
 
-        scopes = ["https://tenant-name.sharepoint.com/.default"]
+        scopes = ["AllSites.Read"] #Updated scope here
         result = app.acquire_token_silent(scopes, account=None)
 
         if not result:
