@@ -1,0 +1,7 @@
+# Replit files
+.git/
+.config/
+.replit
+replit.nix
+.env
+.env.*
