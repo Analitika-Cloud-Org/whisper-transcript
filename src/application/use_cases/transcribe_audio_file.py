@@ -3,17 +3,25 @@ from pathlib import Path
 from src.domain.interfaces.audio_transcriber import AudioTranscriber
 from src.domain.interfaces.file_downloader import FileDownloader
 from src.domain.entities.transcript import Transcript
+from src.infrastructure.services.media_converter import MediaConverter
 
 class TranscribeAudioFileUseCase:
     def __init__(self, transcriber: AudioTranscriber, downloader: FileDownloader):
         self.transcriber = transcriber
         self.downloader = downloader
+        self.converter = MediaConverter()
 
     def execute(self, file_name: str, sharepoint_link: str) -> Transcript:
         downloads_dir = Path("downloads")
         downloads_dir.mkdir(exist_ok=True)
 
-        audio_path = downloads_dir / file_name
-        self.downloader.download(sharepoint_link, str(audio_path))
+        file_path = downloads_dir / file_name
+        self.downloader.download(sharepoint_link, str(file_path))
 
-        return self.transcriber.transcribe(str(audio_path))
+        # Si es un archivo MP4, convertirlo a MP3
+        if file_path.suffix.lower() == '.mp4':
+            audio_path = file_path.with_suffix('.mp3')
+            self.converter.convert_video_to_audio(str(file_path), str(audio_path))
+            file_path = audio_path
+
+        return self.transcriber.transcribe(str(file_path))
