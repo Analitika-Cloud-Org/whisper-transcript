@@ -11,29 +11,14 @@ class WhisperTranscriber(AudioTranscriber):
         print(f"Tipo de input recibido en transcribe: {type(file_input)}, valor: {file_input}")
         model = whisper.load_model("tiny")
 
-        # Crear directorio temporal si no existe
-        temp_dir = tempfile.gettempdir()
-        if not os.path.exists(temp_dir):
-            os.makedirs(temp_dir)
+        if not isinstance(file_input, io.BytesIO):
+            raise ValueError("El input debe ser BytesIO")
 
         # Crear archivo temporal
-        temp_file = tempfile.NamedTemporaryFile(suffix='.mp3', delete=False)
-        temp_path = temp_file.name
-
-        try:
-            # Manejar entrada como BytesIO o ruta de archivo
-            if isinstance(file_input, (io.BytesIO, io.BufferedRandom)):
-                temp_file.write(file_input.getvalue())
-            elif isinstance(file_input, str):
-                if not os.path.exists(file_input):
-                    raise FileNotFoundError(f"El archivo {file_input} no existe")
-                with open(file_input, 'rb') as f:
-                    temp_file.write(f.read())
-            else:
-                raise ValueError("Input debe ser BytesIO o ruta de archivo")
-
+        with tempfile.NamedTemporaryFile(suffix='.mp3', delete=False) as temp_file:
+            temp_path = temp_file.name
+            temp_file.write(file_input.getvalue())
             temp_file.flush()
-            temp_file.close()
 
             # Transcribir
             result = model.transcribe(temp_path)
