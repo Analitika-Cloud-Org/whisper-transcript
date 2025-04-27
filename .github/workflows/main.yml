@@ -2,31 +2,15 @@ name: SharePoint File Trigger
 on:
   repository_dispatch:
     types: [sharepoint_file_added]
-  workflow_dispatch:
+    workflow_dispatch:
 
 jobs:
   process-file:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
-      - name: Clean workspace
-        run: |
-          if (Test-Path whisper-transcript) {
-            Remove-Item -Recurse -Force whisper-transcript
-          }
-          
       - name: Checkout code
         uses: actions/checkout@v2
-        
-      - name: Test System Info
-        run: |
-          systeminfo
-          nvidia-smi  # Esto verificará que CUDA está disponible
-          
-      - name: Test Python
-        run: |
-          python --version
-          pip list
-          
+
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
@@ -37,12 +21,12 @@ jobs:
 
       - name: Install dependencies
         run: pip install -r requirements.txt
-        
+
       - name: Clean downloads directory
         run: |
           rm -rf downloads
           mkdir downloads
-        
+
       - name: Process SharePoint file
         env:
           SHAREPOINT_CLIENT_ID: ${{ secrets.SHAREPOINT_CLIENT_ID }}
@@ -52,9 +36,5 @@ jobs:
           SHAREPOINT_NAME_FILE: ${{ github.event.client_payload.NameFile }}
           SHAREPOINT_NAME_FILE_EXTENSION: ${{ github.event.client_payload.NameFileExtension }}
           SHAREPOINT_LINK: ${{ github.event.client_payload.Link }}
-        run: |          
-          echo "Nuevo archivo detectado:"
-          echo "Link: ${{ github.event.client_payload.Link }}"
-          echo "NameFileExtension: ${{ github.event.client_payload.NameFileExtension }}"
-
+        run: |
           python main.py "$SHAREPOINT_NAME_FILE" "$SHAREPOINT_LINK"
