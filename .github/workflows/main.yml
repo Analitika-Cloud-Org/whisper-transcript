@@ -9,9 +9,9 @@ jobs:
     env:
       ACTIONS_STEP_DEBUG: true  # Habilita logs detallados para depuración
     steps:
-      - name: Clean workspace
+      - name: Create workspace directory
         run: |
-          if exist whisper-transcript rmdir /s /q whisper-transcript
+          if not exist downloads mkdir downloads
         shell: cmd
       - name: Checkout code
         uses: actions/checkout@v4  # Actualizado a v4
