@@ -1,0 +1,68 @@
+Run Write-Output "Nuevo archivo detectado:"
+Nuevo archivo detectado:
+Link: https://analitikacloud.sharepoint.com/hooksharepointfiles/Plan%20B%20-%20Candy%20%5BOfficial%20Audio%5D.mp3
+NameFileExtension: Plan B - Candy [Official Audio].mp3
+A module that was compiled using NumPy 1.x cannot be run in
+NumPy 2.2.5 as it may crash. To support both 1.x and 2.x
+versions of NumPy, modules must be compiled with NumPy 2.0.
+Some module may need to rebuild instead e.g. with 'pybind11>=2.12'.
+If you are a user of the module, the easiest solution will be to
+downgrade to 'numpy<2' or try to upgrade the affected module.
+We expect that some modules will need time to support NumPy 2.
+Traceback (most recent call last):  File "C:\actions-runner\_work\whisper-transcript\whisper-transcript\main.py", line 4, in <module>
+    from src.infrastructure.services.whisper_transcriber import WhisperTranscriber
+  File "C:\actions-runner\_work\whisper-transcript\whisper-transcript\src\infrastructure\services\whisper_transcriber.py", line 2, in <module>
+    import whisper
+  File "C:\actions-runner\_work\_tool\Python\3.10.11\x64\lib\site-packages\whisper\__init__.py", line 8, in <module>
+    import torch
+  File "C:\actions-runner\_work\_tool\Python\3.10.11\x64\lib\site-packages\torch\__init__.py", line 1471, in <module>
+    from .functional import *  # noqa: F403
+  File "C:\actions-runner\_work\_tool\Python\3.10.11\x64\lib\site-packages\torch\functional.py", line 9, in <module>
+    import torch.nn.functional as F
+  File "C:\actions-runner\_work\_tool\Python\3.10.11\x64\lib\site-packages\torch\nn\__init__.py", line 1, in <module>
+    from .modules import *  # noqa: F403
+  File "C:\actions-runner\_work\_tool\Python\3.10.11\x64\lib\site-packages\torch\nn\modules\__init__.py", line 35, in <module>
+    from .transformer import TransformerEncoder, TransformerDecoder, \
+  File "C:\actions-runner\_work\_tool\Python\3.10.11\x64\lib\site-packages\torch\nn\modules\transformer.py", line 20, in <module>
+    device: torch.device = torch.device(torch._C._get_default_device()),  # torch.device('cpu'),
+C:\actions-runner\_work\_tool\Python\3.10.11\x64\lib\site-packages\torch\nn\modules\transformer.py:20: UserWarning: Failed to initialize NumPy: _ARRAY_API not found (Triggered internally at ..\torch\csrc\utils\tensor_numpy.cpp:84.)
+  device: torch.device = torch.device(torch._C._get_default_device()),  # torch.device('cpu'),
+  0%|                                               | 0.00/139M [00:00<?, ?iB/s]
+  0%|                                       | 48.0k/139M [00:00<05:05, 476kiB/s]
+  0%|                                        | 144k/139M [00:00<03:09, 766kiB/s]
+  0%|                                       | 336k/139M [00:00<01:51, 1.30MiB/s]
+  1%|2                                      | 768k/139M [00:00<00:57, 2.52MiB/s]
+  1%|4                                     | 1.75M/139M [00:00<00:26, 5.36MiB/s]
+  3%|#                                     | 3.95M/139M [00:00<00:12, 11.3MiB/s]
+  6%|##1                                   | 8.00M/139M [00:00<00:06, 21.0MiB/s]
+ 11%|####3                                 | 15.8M/139M [00:00<00:03, 33.8MiB/s]
+ 14%|#####3                                | 19.6M/139M [00:01<00:03, 32.9MiB/s]
+ 17%|######3                               | 23.3M/139M [00:01<00:03, 32.4MiB/s]
+ 19%|#######2                              | 26.3M/139M [00:01<00:03, 31.4MiB/s]
+ 23%|########6                             | 31.7M/139M [00:01<00:02, 37.7MiB/s]
+ 26%|#########9                            | 36.2M/139M [00:01<00:02, 40.3MiB/s]
+ 29%|##########9                           | 40.1M/139M [00:02<00:06, 14.8MiB/s]
+ 31%|###########7                          | 42.9M/139M [00:06<00:38, 2.63MiB/s]
+ 32%|############3                         | 45.0M/139M [00:06<00:31, 3.07MiB/s]
+ 35%|#############1                        | 48.0M/139M [00:07<00:26, 3.57MiB/s]
+ 36%|#############5                        | 49.4M/139M [00:09<00:42, 2.19MiB/s]
+ 36%|#############8                        | 50.4M/139M [00:10<00:46, 1.98MiB/s]
+ 37%|##############                        | 51.1M/139M [00:10<00:47, 1.92MiB/s]
+ 39%|##############6                       | 53.4M/139M [00:10<00:30, 2.89MiB/s]
+ 42%|################                      | 58.6M/139M [00:10<00:14, 5.92MiB/s]
+ 47%|#################9                    | 65.4M/139M [00:10<00:07, 11.0MiB/s]
+ 52%|###################7                  | 72.0M/139M [00:11<00:06, 11.0MiB/s]
+ 54%|####################5                 | 74.9M/139M [00:15<00:25, 2.64MiB/s]
+ 56%|#####################                 | 76.9M/139M [00:16<00:21, 2.99MiB/s]
+ 59%|######################4               | 82.0M/139M [00:16<00:12, 4.65MiB/s]
+ 65%|########################5             | 89.6M/139M [00:16<00:06, 8.03MiB/s]
+ 70%|##########################6           | 97.1M/139M [00:16<00:03, 12.3MiB/s]
+ 74%|############################7          | 102M/139M [00:16<00:02, 13.6MiB/s]
+ 77%|#############################9         | 106M/139M [00:17<00:02, 13.3MiB/s]
+ 81%|###############################5       | 112M/139M [00:17<00:01, 17.6MiB/s]
+ 85%|#################################1     | 118M/139M [00:17<00:00, 22.6MiB/s]
+ 89%|##################################7    | 123M/139M [00:17<00:00, 27.9MiB/s]
+ 93%|####################################2  | 129M/139M [00:17<00:00, 33.3MiB/s]
+ 97%|#####################################7 | 134M/139M [00:17<00:00, 37.3MiB/s]
+100%|#######################################| 139M/139M [00:18<00:00, 7.74MiB/s]
+Error: Numpy is not available
