@@ -1,0 +1,7 @@
+openai-whisper
+requests
+msal
+python-dotenv
+torch
+ffmpeg==1.4
+anthropic

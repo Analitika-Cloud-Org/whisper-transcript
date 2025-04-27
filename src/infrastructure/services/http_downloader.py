@@ -1,0 +1,223 @@
+import requests
+import msal
+import sys
+import os
+from urllib.parse import urlparse, unquote
+import base64
+
+class HttpDownloader:
+    def __init__(self, client_id: str, client_secret: str, tenant_id: str):
+        """
+        Initialize the HTTP downloader with Azure AD credentials.
+
+        Args:
+            client_id (str): Azure AD application client ID.
+            client_secret (str): Azure AD application client secret.
+            tenant_id (str): Azure AD tenant ID.
+        """
+        self.client_id = client_id
+        self.client_secret = client_secret
+        self.tenant_id = tenant_id
+
+    def get_access_token(self):
+        """
+        Acquire an access token for Microsoft Graph API using client credentials.
+
+        Returns:
+            str: Access token.
+
+        Raises:
+            Exception: If token acquisition fails.
+        """
+        app = msal.ConfidentialClientApplication(
+            self.client_id,
+            authority=f"https://login.microsoftonline.com/{self.tenant_id}",
+            client_credential=self.client_secret
+        )
+        scopes = ["https://graph.microsoft.com/.default"]
+        result = app.acquire_token_silent(scopes, account=None)
+        if not result:
+            result = app.acquire_token_for_client(scopes=scopes)
+        if "access_token" in result:
+            return result["access_token"]
+        else:
+            raise Exception(f"No se pudo obtener el token: {result.get('error_description', 'Error desconocido')}")
+
+    def get_site_id(self, headers):
+        """
+        Retrieve the site ID for the SharePoint root site.
+
+        Args:
+            headers (dict): HTTP headers with authorization token.
+
+        Returns:
+            str: Site ID.
+
+        Raises:
+            Exception: If the site ID cannot be retrieved.
+        """
+        root_site_url = "https://graph.microsoft.com/v1.0/sites/analitikacloud.sharepoint.com"
+        response = requests.get(root_site_url, headers=headers)
+        response.raise_for_status()
+        return response.json()["id"]
+
+    def get_document_libraries(self, site_id, headers):
+        """
+        List all document libraries in the site.
+
+        Args:
+            site_id (str): SharePoint site ID.
+            headers (dict): HTTP headers with authorization token.
+
+        Returns:
+            list: List of document libraries.
+        """
+        drives_url = f"https://graph.microsoft.com/v1.0/sites/{site_id}/drives"
+        response = requests.get(drives_url, headers=headers)
+        response.raise_for_status()
+        return response.json()["value"]
+
+    def find_file_in_library(self, site_id, drive_id, file_path, headers):
+        """
+        Search for a file in a specific document library.
+
+        Args:
+            site_id (str): SharePoint site ID.
+            drive_id (str): Document library drive ID.
+            file_path (str): Relative path to the file.
+            headers (dict): HTTP headers with authorization token.
+
+        Returns:
+            dict: File metadata if found, None otherwise.
+        """
+        graph_url = f"https://graph.microsoft.com/v1.0/sites/{site_id}/drives/{drive_id}/root:/{file_path}"
+        print(f"Checking: {graph_url}")
+        response = requests.get(graph_url, headers=headers)
+        if response.status_code == 200:
+            return response.json()
+        else:
+            print(f"File not found in library: {response.text}")
+            return None
+
+    def resolve_sharing_link(self, url, headers):
+        """
+        Resolve a SharePoint sharing link to get the file metadata.
+
+        Args:
+            url (str): SharePoint sharing link.
+            headers (dict): HTTP headers with authorization token.
+
+        Returns:
+            dict: File metadata if resolved, None otherwise.
+        """
+        try:
+            encoded_url = base64.urlsafe_b64encode(url.encode()).decode().rstrip("=")
+            sharing_url = f"https://graph.microsoft.com/v1.0/shares/u!{encoded_url}/driveItem"
+            response = requests.get(sharing_url, headers=headers)
+            response.raise_for_status()
+            return response.json()
+        except Exception as e:
+            print(f"Failed to resolve sharing link: {str(e)}")
+            return None
+
+    def download(self, url: str, output_path: str) -> str:
+        """
+        Download a file from SharePoint using the Microsoft Graph API.
+
+        Args:
+            url (str): SharePoint URL of the file.
+            output_path (str): Local path to save the downloaded file.
+
+        Returns:
+            str: Path to the downloaded file.
+
+        Raises:
+            Exception: If the download fails.
+        """
+        try:
+            # Get access token
+            token = self.get_access_token()
+            headers = {
+                'Authorization': f'Bearer {token}',
+                'Accept': 'application/json'
+            }
+
+            # Try resolving as a sharing link first
+            file_info = self.resolve_sharing_link(url, headers)
+            if file_info and "@microsoft.graph.downloadUrl" in file_info:
+                download_url = file_info["@microsoft.graph.downloadUrl"]
+            else:
+                # Parse the SharePoint URL
+                parsed_url = urlparse(url)
+                file_path = unquote(parsed_url.path).lstrip('/')
+                relative_path = file_path.split('hooksharepointfiles/')[-1]
+
+                # Get the site ID
+                site_id = self.get_site_id(headers)
+
+                # List all document libraries
+                libraries = self.get_document_libraries(site_id, headers)
+                print("Available document libraries:")
+                for lib in libraries:
+                    print(f"- {lib['name']} (ID: {lib['id']})")
+
+                # Try the default document library
+                graph_url = f"https://graph.microsoft.com/v1.0/sites/{site_id}/drive/root:/hooksharepointfiles/{relative_path}"
+                print(f"Trying default library: {graph_url}")
+                response = requests.get(graph_url, headers=headers)
+                if response.status_code == 200:
+                    file_info = response.json()
+                else:
+                    print(f"Default library error: {response.text}")
+
+                    # Try other document libraries
+                    for lib in libraries:
+                        file_info = self.find_file_in_library(site_id, lib["id"], relative_path, headers)
+                        if file_info:
+                            break
+
+                if not file_info or "@microsoft.graph.downloadUrl" not in file_info:
+                    raise Exception("No se pudo obtener la URL de descarga")
+
+                download_url = file_info["@microsoft.graph.downloadUrl"]
+
+            # Download the file
+            download_response = requests.get(download_url, stream=True)
+            download_response.raise_for_status()
+
+            # Save the file
+            with open(output_path, 'wb') as f:
+                for chunk in download_response.iter_content(chunk_size=8192):
+                    f.write(chunk)
+
+            return output_path
+
+        except Exception as e:
+            raise Exception(f"Error al descargar el archivo: {str(e)}")
+
+def main():
+    """
+    Main function to handle command-line arguments and initiate the download.
+    """
+    if len(sys.argv) != 3:
+        print("Uso: python main.py <nombre_archivo_local> <url_sharepoint>")
+        sys.exit(1)
+
+    local_file = sys.argv[1]
+    sharepoint_url = sys.argv[2]
+
+    # Replace with your Azure AD credentials
+    client_id = "TU_CLIENT_ID"  # Replace with your client ID
+    client_secret = "TU_CLIENT_SECRET"  # Replace with your client secret
+    tenant_id = "analitikacloud.onmicrosoft.com"  # Replace if different
+
+    try:
+        downloader = HttpDownloader(client_id, client_secret, tenant_id)
+        result = downloader.download(sharepoint_url, local_file)
+        print(f"Archivo descargado exitosamente: {result}")
+    except Exception as e:
+        print(f"Error: {str(e)}")
+        sys.exit(1)
+
+if __name__ == "__main__":
+    main()

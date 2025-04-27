@@ -1,0 +1,51 @@
+import os
+from pathlib import Path
+from src.domain.interfaces.audio_transcriber import AudioTranscriber
+from src.domain.interfaces.file_downloader import FileDownloader
+from src.domain.entities.transcript import Transcript
+from src.infrastructure.services.media_converter import MediaConverter
+from src.infrastructure.services.text_summarizer import TextSummarizer
+
+
+class TranscribeAudioFileUseCase:
+
+    def __init__(self, transcriber: AudioTranscriber,
+                 downloader: FileDownloader):
+        self.transcriber = transcriber
+        self.downloader = downloader
+        self.converter = MediaConverter()
+
+    def execute(self, file_name: str, sharepoint_link: str) -> Transcript:
+        downloads_dir = Path("downloads")
+        downloads_dir.mkdir(exist_ok=True)
+
+        file_path = downloads_dir / file_name
+        self.downloader.download(sharepoint_link, str(file_path))
+
+        # Si es un archivo MP4, convertirlo a MP3
+        if file_path.suffix.lower() == '.mp4':
+            audio_path = file_path.with_suffix('.mp3')
+            self.converter.convert_video_to_audio(str(file_path),
+                                                  str(audio_path))
+            file_path = audio_path
+
+        transcript = self.transcriber.transcribe(str(file_path))
+
+        # Save transcript
+        transcript_file = f"{file_name[:-4]}_transcript.txt"  #removed unnecessary filename variable
+        with open(transcript_file, "w", encoding="utf-8") as f:
+            f.write(transcript.text)
+        print(f"Transcripción guardada en: {transcript_file}")
+
+        # Save summary if available
+        if 'ANTHROPIC_API_KEY' in os.environ:
+            try:
+                summarizer = TextSummarizer()
+                summary = summarizer.summarize(transcript.text)
+                summary_file = f"{file_name[:-4]}_summary.txt"  #removed unnecessary filename variable
+                with open(summary_file, "w", encoding="utf-8") as f:
+                    f.write(summary)
+                print(f"Resumen guardado en: {summary_file}")
+            except Exception as e:
+                print(f"Error al guardar el resumen: {str(e)}")
+        return transcript
