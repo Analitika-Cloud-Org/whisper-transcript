@@ -32,6 +32,11 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
         
+      - name: Clean downloads directory
+        run: |
+          rm -rf downloads
+          mkdir downloads
+        
       - name: Process SharePoint file
         env:
           SHAREPOINT_CLIENT_ID: ${{ secrets.SHAREPOINT_CLIENT_ID }}
