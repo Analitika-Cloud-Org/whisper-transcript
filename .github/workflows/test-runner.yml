@@ -1,0 +1,30 @@
+name: Test Runner
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:  # Permite ejecutar manualmente
+
+jobs:
+  test-runner:
+    runs-on: self-hosted
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Test System Info
+        run: |
+          systeminfo
+          nvidia-smi  # Esto verificará que CUDA está disponible
+          
+      - name: Test Python
+        run: |
+          python --version
+          pip list
+          
+      - name: Create Test File
+        run: |
+          echo "Test successful at $(Get-Date)" > test.txt
+          Get-Content test.txt
