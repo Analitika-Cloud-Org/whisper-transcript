@@ -1,7 +1,7 @@
-openai-whisper
-requests
-msal
-python-dotenv
-torch
+openai-whisper==20231117
+requests==2.31.0
+msal==1.26.0
+python-dotenv==1.0.1
+torch==2.2.0
 ffmpeg==1.4
-anthropic
+anthropic==0.17.0
