@@ -7,46 +7,28 @@ on:
 jobs:
   process-file:
     runs-on: self-hosted
-    env:
-      ACTIONS_STEP_DEBUG: true
     steps:
       - name: Clean workspace
-        run: Remove-Item -Recurse -Force whisper-transcript -ErrorAction SilentlyContinue
+        run: |
+          if (Test-Path whisper-transcript) {
+            Remove-Item -Recurse -Force whisper-transcript
+          }
         shell: powershell
 
-      - name: Setup Environment
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
-          cache: 'pip'
-          check-latest: true
-
-      - name: Setup FFmpeg
+      - name: Setup WSL environment
         run: |
-          $ffmpegPath = "C:\ffmpeg\ffmpeg-master-latest-win64-gpl\bin\ffmpeg.exe"
-          if (-not (Test-Path $ffmpegPath)) {
-            Invoke-WebRequest -Uri "https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win64-gpl.zip" -OutFile "ffmpeg.zip"
-            Expand-Archive -Path "ffmpeg.zip" -DestinationPath "C:\ffmpeg" -Force
-          }
-          $env:Path += ";C:\ffmpeg\ffmpeg-master-latest-win64-gpl\bin"
+          wsl.exe -d Ubuntu-22.04 bash -c "sudo apt-get update && sudo apt-get install -y python3 python3-pip ffmpeg"
         shell: powershell
 
-      - name: Install Dependencies
+      - name: Install dependencies in WSL
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          wsl.exe -d Ubuntu-22.04 bash -c "cd $PWD && pip3 install -r requirements.txt"
         shell: powershell
 
-      - name: Prepare Downloads Directory
-        run: |
-          Remove-Item -Recurse -Force downloads -ErrorAction SilentlyContinue
-          New-Item -ItemType Directory -Path downloads
-        shell: powershell
-
-      - name: Process File
+      - name: Process SharePoint file in WSL
         env:
           SHAREPOINT_CLIENT_ID: ${{ secrets.SHAREPOINT_CLIENT_ID }}
           SHAREPOINT_CLIENT_SECRET: ${{ secrets.SHAREPOINT_CLIENT_SECRET }}
@@ -55,5 +37,14 @@ jobs:
           SHAREPOINT_NAME_FILE: ${{ github.event.client_payload.NameFile }}
           SHAREPOINT_NAME_FILE_EXTENSION: ${{ github.event.client_payload.NameFileExtension }}
           SHAREPOINT_LINK: ${{ github.event.client_payload.Link }}
-        run: python main.py "$env:SHAREPOINT_NAME_FILE" "$env:SHAREPOINT_LINK"
+        run: |
+          wsl.exe -d Ubuntu-22.04 bash -c "cd $PWD && 
+            export SHAREPOINT_CLIENT_ID='$env:SHAREPOINT_CLIENT_ID' && 
+            export SHAREPOINT_CLIENT_SECRET='$env:SHAREPOINT_CLIENT_SECRET' && 
+            export SHAREPOINT_TENANT_ID='$env:SHAREPOINT_TENANT_ID' && 
+            export ANTHROPIC_API_KEY='$env:ANTHROPIC_API_KEY' && 
+            export SHAREPOINT_LINK='$env:SHAREPOINT_LINK' && 
+            export SHAREPOINT_NAME_FILE='$env:SHAREPOINT_NAME_FILE' && 
+            export SHAREPOINT_NAME_FILE_EXTENSION='$env:SHAREPOINT_NAME_FILE_EXTENSION' && 
+            python3 main.py '$env:SHAREPOINT_NAME_FILE' '$env:SHAREPOINT_LINK'"
         shell: powershell
