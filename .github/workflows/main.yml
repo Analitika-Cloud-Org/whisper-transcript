@@ -2,6 +2,7 @@ name: SharePoint File Trigger
 on:
   repository_dispatch:
     types: [sharepoint_file_added]
+  workflow_dispatch:
 
 jobs:
   process-file:
