@@ -8,7 +8,9 @@ from src.infrastructure.services.text_summarizer import TextSummarizer
 
 
 class TranscribeAudioFileUseCase:
-    def __init__(self, transcriber: AudioTranscriber, downloader: FileDownloader):
+
+    def __init__(self, transcriber: AudioTranscriber,
+                 downloader: FileDownloader):
         self.transcriber = transcriber
         self.downloader = downloader
         self.converter = MediaConverter()
@@ -23,18 +25,27 @@ class TranscribeAudioFileUseCase:
         # Si es un archivo MP4, convertirlo a MP3
         if file_path.suffix.lower() == '.mp4':
             audio_path = file_path.with_suffix('.mp3')
-            self.converter.convert_video_to_audio(str(file_path), str(audio_path))
+            self.converter.convert_video_to_audio(str(file_path),
+                                                  str(audio_path))
             file_path = audio_path
 
         transcript = self.transcriber.transcribe(str(file_path))
 
-        # Resumir el texto si está disponible el API key de Anthropic
+        # Save transcript
+        transcript_file = f"{file_name[:-4]}_transcript.txt"  #removed unnecessary filename variable
+        with open(transcript_file, "w", encoding="utf-8") as f:
+            f.write(transcript.text)
+        print(f"Transcripción guardada en: {transcript_file}")
+
+        # Save summary if available
         if 'ANTHROPIC_API_KEY' in os.environ:
             try:
                 summarizer = TextSummarizer()
                 summary = summarizer.summarize(transcript.text)
-                return Transcript(f"Transcripción original:\n\n{transcript.text}\n\nResumen:\n\n{summary}", transcript.source_file)
+                summary_file = f"{file_name[:-4]}_summary.txt"  #removed unnecessary filename variable
+                with open(summary_file, "w", encoding="utf-8") as f:
+                    f.write(summary)
+                print(f"Resumen guardado en: {summary_file}")
             except Exception as e:
-                print(f"Error al resumir: {str(e)}")
-                return transcript
+                print(f"Error al guardar el resumen: {str(e)}")
         return transcript
