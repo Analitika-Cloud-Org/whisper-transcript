@@ -1,0 +1,274 @@
+Run actions/setup-python@v5
+Installed versions
+Cache hit for: setup-python-Windows-x64-python-3.10.11-pip-366e6b8f511890e6510328acd14b58a86e236d76e1b29db3228c0dc22e45c8e7
+Received 0 of 288248221 (0.0%), 0.0 MBs/sec
+Received 20971520 of 288248221 (7.3%), 9.9 MBs/sec
+Received 58720256 of 288248221 (20.4%), 18.5 MBs/sec
+Received 100663296 of 288248221 (34.9%), 23.8 MBs/sec
+Received 130023424 of 288248221 (45.1%), 24.6 MBs/sec
+Received 138412032 of 288248221 (48.0%), 21.9 MBs/sec
+Received 188743680 of 288248221 (65.5%), 25.6 MBs/sec
+Received 226492416 of 288248221 (78.6%), 26.9 MBs/sec
+Received 260046848 of 288248221 (90.2%), 27.4 MBs/sec
+Received 272629760 of 288248221 (94.6%), 25.9 MBs/sec
+Received 288248221 of 288248221 (100.0%), 26.3 MBs/sec
+Cache Size: ~275 MB (288248221 B)
+"C:\Program Files\Git\usr\bin\tar.exe" -xf C:/actions-runner/_work/_temp/e8d7ebcf-5731-4587-bf0d-204b98985598/cache.tzst -P -C C:/actions-runner/_work/whisper-transcript/whisper-transcript --force-local --use-compress-program "zstd -d"
+Cache restored successfully
+Cache restored from key: setup-python-Windows-x64-python-3.10.11-pip-366e6b8f511890e6510328acd14b58a86e236d76e1b29db3228c0dc22e45c8e7
+0s
+Run python --version
+Python 3.10.11
+Package            Version
+------------------ ---------
+annotated-types    0.7.0
+anthropic          0.17.0
+anyio              4.9.0
+certifi            2025.4.26
+cffi               1.17.1
+charset-normalizer 3.4.1
+colorama           0.4.6
+cryptography       43.0.3
+distro             1.9.0
+exceptiongroup     1.2.2
+ffmpeg             1.4
+filelock           3.18.0
+fsspec             2025.3.2
+h11                0.16.0
+httpcore           1.0.9
+httpx              0.28.1
+huggingface-hub    0.30.2
+idna               3.10
+Jinja2             3.1.6
+llvmlite           0.44.0
+MarkupSafe         3.0.2
+more-itertools     10.7.0
+mpmath             1.3.0
+msal               1.26.0
+networkx           3.4.2
+numba              0.61.2
+numpy              1.26.4
+openai-whisper     20231117
+packaging          25.0
+pip                25.1
+pycparser          2.22
+pydantic           2.11.3
+pydantic_core      2.33.1
+PyJWT              2.10.1
+python-dotenv      1.0.1
+PyYAML             6.0.2
+regex              2024.11.6
+requests           2.31.0
+setuptools         65.5.0
+sniffio            1.3.1
+sympy              1.14.0
+tiktoken           0.9.0
+tokenizers         0.21.1
+torch              2.2.0
+tqdm               4.67.1
+typing_extensions  4.13.2
+typing-inspection  0.4.0
+urllib3            2.4.0
+3s
+Run systeminfo
+  
+Nombre de host:                            24LAP5CD4088H79
+Nombre del sistema operativo:              Microsoft Windows 11 Pro
+Versión del sistema operativo:             10.0.26100 N/D Compilación 26100
+Fabricante del sistema operativo:          Microsoft Corporation
+Configuración del sistema operativo:       Estación de trabajo independiente
+Tipo de compilación del sistema operativo: Multiprocessor Free
+Propietario registrado:                    Braulio
+Organización registrada:                   N/D
+Id. del producto:                          00330-80000-00000-AA638
+Fecha de instalación original:             26/01/2025, 13:01:08
+Tiempo de arranque del sistema:            27/04/2025, 0:10:25
+Fabricante del sistema:                    ASUS
+Modelo del sistema:                        System Product Name
+Tipo de sistema:                           x64-based PC
+Procesadores:                              1 Procesadores instalados.
+                                           [01]: Intel64 Family 6 Model 183 Stepping 1 GenuineIntel ~3400 Mhz
+Versión del BIOS:                          American Megatrends Inc. 1663, 08/08/2024
+Directorio de Windows:                     C:\WINDOWS
+Directorio de sistema:                     C:\WINDOWS\system32
+Dispositivo de arranque:                   \Device\HarddiskVolume1
+Configuración regional del sistema:        es-mx;Español (México)
+Idioma de entrada:                         es;Español (tradicional)
+Zona horaria:                              (UTC-05:00) Bogotá, Lima, Quito, Rio Branco
+Memoria física total:                      32.507 MB
+Memoria física disponible:                 11.421 MB
+Memoria virtual: tamaño máximo:            79.611 MB
+Memoria virtual: disponible:               41.093 MB
+Memoria virtual: en uso:                   38.518 MB
+Ubicaciones de archivos de página:         D:\pagefile.sys
+Dominio:                                   WORKGROUP
+Servidor de inicio de sesión:              N/D
+Revisiones:                                3 revisión(es) instaladas.
+                                           [01]: KB5054979
+                                           [02]: KB5055523
+                                           [03]: KB5058538
+Tarjetas de red:                           6 Tarjetas de interfaz de red instaladas.
+                                           [01]: Intel(R) Ethernet Controller I226-V
+                                                 Nombre de conexión: Ethernet 2
+                                                 DHCP habilitado:    Sí
+                                                 Servidor DHCP:      192.168.18.1
+                                                 Direcciones IP
+                                                 [01]: 192.168.18.44
+                                                 [02]: fe80::17df:d7b7:8aac:55c9
+                                           [02]: Bluetooth Device (Personal Area Network)
+                                                 Nombre de conexión: Conexión de red Bluetooth
+                                                 Estado:             Medios desconectados
+                                           [03]: Intel(R) Wi-Fi 6E AX211 160MHz
+                                                 Nombre de conexión: Wi-Fi
+                                                 Estado:             Medios desconectados
+                                           [04]: Fortinet Virtual Ethernet Adapter (NDIS 6.30)
+                                                 Nombre de conexión: Ethernet 3
+                                                 Estado:             Medios desconectados
+                                           [05]: Fortinet SSL VPN Virtual Ethernet Adapter
+                                                 Nombre de conexión: Ethernet 4
+                                                 Estado:             Medios desconectados
+                                           [06]: VirtualBox Host-Only Ethernet Adapter
+                                                 Nombre de conexión: Ethernet 5
+                                                 DHCP habilitado:    No
+                                                 Direcciones IP
+                                                 [01]: 192.168.56.1
+                                                 [02]: fe80::702d:f30d:61c1:8140
+Seguridad basada en virtualización:        Estado: En ejecución
+                                           Propiedades de seguridad requeridas:
+                                                 Compatibilidad con la virtualización base
+                                           Propiedades de seguridad disponibles:
+                                                 Compatibilidad con la virtualización base
+                                                 Protección de DMA
+                                                 Sobrescritura de memoria segura
+                                                 Código UEFI de solo lectura
+                                                 SMM Security Mitigations 1.0
+                                                 Control de ejecución basado en el modo
+                                                 Virtualización de APIC
+                                           Services Configured:
+                                                 Integridad del código reforzada por el hipervisor
+                                           Services Running:
+                                                 Integridad del código reforzada por el hipervisor
+                                                 Traducción de paginación aplicada por hipervisor
+                                           App Control for Business policy: Forzado
+                                           App Control for Business user mode policy: Desactivado
+                                           Características de seguridad habilitadas:
+Requisitos Hyper-V:                        Se detectó un hipervisor. No se mostrarán las características necesarias para Hyper-V.
+Sun Apr 27 17:31:51 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 572.61                 Driver Version: 572.61         CUDA Version: 12.8     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                  Driver-Model | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 4060      WDDM  |   00000000:01:00.0  On |                  N/A |
+|  0%   53C    P3            N/A  /  115W |    1459MiB /   8188MiB |     37%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A            4712    C+G   ...em_tray\lghub_system_tray.exe      N/A      |
+|    0   N/A  N/A           10976    C+G   ...8bbwe\PhoneExperienceHost.exe      N/A      |
+|    0   N/A  N/A           18120    C+G   ...5n1h2txyewy\TextInputHost.exe      N/A      |
+|    0   N/A  N/A           18688    C+G   ..._cw5n1h2txyewy\SearchHost.exe      N/A      |
+|    0   N/A  N/A           20572    C+G   ....0.3179.98\msedgewebview2.exe      N/A      |
+|    0   N/A  N/A           22116    C+G   C:\Windows\explorer.exe               N/A      |
+|    0   N/A  N/A           22124    C+G   ...y\StartMenuExperienceHost.exe      N/A      |
+|    0   N/A  N/A           26740    C+G   ...ms\Microsoft VS Code\Code.exe      N/A      |
+|    0   N/A  N/A           27972    C+G   ...al\Programs\cursor\Cursor.exe      N/A      |
+|    0   N/A  N/A           29740    C+G   ...em32\ApplicationFrameHost.exe      N/A      |
+|    0   N/A  N/A           35288    C+G   ...xyewy\ShellExperienceHost.exe      N/A      |
+|    0   N/A  N/A           35932    C+G   ...yb3d8bbwe\WindowsTerminal.exe      N/A      |
+|    0   N/A  N/A           38036    C+G   C:\Windows\System32\dwm.exe           N/A      |
+|    0   N/A  N/A           39028    C+G   C:\Windows\System32\Taskmgr.exe       N/A      |
+|    0   N/A  N/A           44676    C+G   ...indows\System32\ShellHost.exe      N/A      |
++-----------------------------------------------------------------------------------------+
+0s
+Run where ffmpeg >nul 2>&1
+Comprobando FFmpeg...
+FFmpeg ya instalado, omitiendo descarga.
+PATH actualizado para el proceso actual
+ffmpeg version N-119368-gfb36f170de-20250427 Copyright (c) 2000-2025 the FFmpeg developers
+built with gcc 14.2.0 (crosstool-NG 1.27.0.18_7458341)
+configuration: --prefix=/ffbuild/prefix --pkg-config-flags=--static --pkg-config=pkg-config --cross-prefix=x86_64-w64-mingw32- --arch=x86_64 --target-os=mingw32 --enable-gpl --enable-version3 --disable-debug --disable-w32threads --enable-pthreads --enable-iconv --enable-zlib --enable-libfreetype --enable-libfribidi --enable-gmp --enable-libxml2 --enable-lzma --enable-fontconfig --enable-libharfbuzz --enable-libvorbis --enable-opencl --disable-libpulse --enable-libvmaf --disable-libxcb --disable-xlib --enable-amf --enable-libaom --enable-libaribb24 --enable-avisynth --enable-chromaprint --enable-libdav1d --enable-libdavs2 --enable-libdvdread --enable-libdvdnav --disable-libfdk-aac --enable-ffnvcodec --enable-cuda-llvm --enable-frei0r --enable-libgme --enable-libkvazaar --enable-libaribcaption --enable-libass --enable-libbluray --enable-libjxl --enable-libmp3lame --enable-libopus --enable-librist --enable-libssh --enable-libtheora --enable-libvpx --enable-libwebp --enable-libzmq --enable-lv2 --enable-libvpl --e
+libavutil      60.  2.100 / 60.  2.100
+libavcodec     62.  0.101 / 62.  0.101
+libavformat    62.  0.100 / 62.  0.100
+libavdevice    62.  0.100 / 62.  0.100
+libavfilter    11.  0.100 / 11.  0.100
+libswscale      9.  0.100 /  9.  0.100
+libswresample   6.  0.100 /  6.  0.100
+libpostproc    59.  1.100 / 59.  1.100
+2s
+Run python -m pip install --upgrade pip
+  
+Requirement already satisfied: pip in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (25.1)
+Requirement already satisfied: numpy<2.0.0 in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (from -r requirements.txt (line 1)) (1.26.4)
+Requirement already satisfied: openai-whisper in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (from -r requirements.txt (line 2)) (20231117)
+Requirement already satisfied: requests==2.31.0 in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (from -r requirements.txt (line 3)) (2.31.0)
+Requirement already satisfied: msal==1.26.0 in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (from -r requirements.txt (line 4)) (1.26.0)
+Requirement already satisfied: python-dotenv==1.0.1 in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (from -r requirements.txt (line 5)) (1.0.1)
+Requirement already satisfied: torch==2.2.0 in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (from -r requirements.txt (line 6)) (2.2.0)
+Requirement already satisfied: ffmpeg==1.4 in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (from -r requirements.txt (line 7)) (1.4)
+Requirement already satisfied: anthropic==0.17.0 in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (from -r requirements.txt (line 8)) (0.17.0)
+Requirement already satisfied: charset-normalizer<4,>=2 in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (from requests==2.31.0->-r requirements.txt (line 3)) (3.4.1)
+Requirement already satisfied: idna<4,>=2.5 in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (from requests==2.31.0->-r requirements.txt (line 3)) (3.10)
+Requirement already satisfied: urllib3<3,>=1.21.1 in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (from requests==2.31.0->-r requirements.txt (line 3)) (2.4.0)
+Requirement already satisfied: certifi>=2017.4.17 in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (from requests==2.31.0->-r requirements.txt (line 3)) (2025.4.26)
+Requirement already satisfied: PyJWT<3,>=1.0.0 in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (from PyJWT[crypto]<3,>=1.0.0->msal==1.26.0->-r requirements.txt (line 4)) (2.10.1)
+Requirement already satisfied: cryptography<44,>=0.6 in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (from msal==1.26.0->-r requirements.txt (line 4)) (43.0.3)
+Requirement already satisfied: filelock in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (from torch==2.2.0->-r requirements.txt (line 6)) (3.18.0)
+Requirement already satisfied: typing-extensions>=4.8.0 in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (from torch==2.2.0->-r requirements.txt (line 6)) (4.13.2)
+Requirement already satisfied: sympy in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (from torch==2.2.0->-r requirements.txt (line 6)) (1.14.0)
+Requirement already satisfied: networkx in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (from torch==2.2.0->-r requirements.txt (line 6)) (3.4.2)
+Requirement already satisfied: jinja2 in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (from torch==2.2.0->-r requirements.txt (line 6)) (3.1.6)
+Requirement already satisfied: fsspec in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (from torch==2.2.0->-r requirements.txt (line 6)) (2025.3.2)
+Requirement already satisfied: anyio<5,>=3.5.0 in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (from anthropic==0.17.0->-r requirements.txt (line 8)) (4.9.0)
+Requirement already satisfied: distro<2,>=1.7.0 in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (from anthropic==0.17.0->-r requirements.txt (line 8)) (1.9.0)
+Requirement already satisfied: httpx<1,>=0.23.0 in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (from anthropic==0.17.0->-r requirements.txt (line 8)) (0.28.1)
+Requirement already satisfied: pydantic<3,>=1.9.0 in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (from anthropic==0.17.0->-r requirements.txt (line 8)) (2.11.3)
+Requirement already satisfied: sniffio in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (from anthropic==0.17.0->-r requirements.txt (line 8)) (1.3.1)
+Requirement already satisfied: tokenizers>=0.13.0 in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (from anthropic==0.17.0->-r requirements.txt (line 8)) (0.21.1)
+Requirement already satisfied: exceptiongroup>=1.0.2 in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (from anyio<5,>=3.5.0->anthropic==0.17.0->-r requirements.txt (line 8)) (1.2.2)
+Requirement already satisfied: cffi>=1.12 in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (from cryptography<44,>=0.6->msal==1.26.0->-r requirements.txt (line 4)) (1.17.1)
+Requirement already satisfied: httpcore==1.* in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (from httpx<1,>=0.23.0->anthropic==0.17.0->-r requirements.txt (line 8)) (1.0.9)
+Requirement already satisfied: h11>=0.16 in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (from httpcore==1.*->httpx<1,>=0.23.0->anthropic==0.17.0->-r requirements.txt (line 8)) (0.16.0)
+Requirement already satisfied: annotated-types>=0.6.0 in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (from pydantic<3,>=1.9.0->anthropic==0.17.0->-r requirements.txt (line 8)) (0.7.0)
+Requirement already satisfied: pydantic-core==2.33.1 in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (from pydantic<3,>=1.9.0->anthropic==0.17.0->-r requirements.txt (line 8)) (2.33.1)
+Requirement already satisfied: typing-inspection>=0.4.0 in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (from pydantic<3,>=1.9.0->anthropic==0.17.0->-r requirements.txt (line 8)) (0.4.0)
+Requirement already satisfied: numba in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (from openai-whisper->-r requirements.txt (line 2)) (0.61.2)
+Requirement already satisfied: tqdm in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (from openai-whisper->-r requirements.txt (line 2)) (4.67.1)
+Requirement already satisfied: more-itertools in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (from openai-whisper->-r requirements.txt (line 2)) (10.7.0)
+Requirement already satisfied: tiktoken in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (from openai-whisper->-r requirements.txt (line 2)) (0.9.0)
+Requirement already satisfied: pycparser in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (from cffi>=1.12->cryptography<44,>=0.6->msal==1.26.0->-r requirements.txt (line 4)) (2.22)
+Requirement already satisfied: huggingface-hub<1.0,>=0.16.4 in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (from tokenizers>=0.13.0->anthropic==0.17.0->-r requirements.txt (line 8)) (0.30.2)
+Requirement already satisfied: packaging>=20.9 in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (from huggingface-hub<1.0,>=0.16.4->tokenizers>=0.13.0->anthropic==0.17.0->-r requirements.txt (line 8)) (25.0)
+Requirement already satisfied: pyyaml>=5.1 in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (from huggingface-hub<1.0,>=0.16.4->tokenizers>=0.13.0->anthropic==0.17.0->-r requirements.txt (line 8)) (6.0.2)
+Requirement already satisfied: colorama in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (from tqdm->openai-whisper->-r requirements.txt (line 2)) (0.4.6)
+Requirement already satisfied: MarkupSafe>=2.0 in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (from jinja2->torch==2.2.0->-r requirements.txt (line 6)) (3.0.2)
+Requirement already satisfied: llvmlite<0.45,>=0.44.0dev0 in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (from numba->openai-whisper->-r requirements.txt (line 2)) (0.44.0)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (from sympy->torch==2.2.0->-r requirements.txt (line 6)) (1.3.0)
+Requirement already satisfied: regex>=2022.1.18 in c:\actions-runner\_work\_tool\python\3.10.11\x64\lib\site-packages (from tiktoken->openai-whisper->-r requirements.txt (line 2)) (2024.11.6)
+0s
+Run if exist downloads rmdir /s /q downloads
+5s
+Run echo Nuevo archivo detectado:
+  
+Nuevo archivo detectado:
+Link: https://analitikacloud.sharepoint.com/hooksharepointfiles/Superman.mp3
+NameFileExtension: Superman.mp3
+C:\actions-runner\_work\_tool\Python\3.10.11\x64\lib\site-packages\whisper\transcribe.py:115: UserWarning: FP16 is not supported on CPU; using FP32 instead
+  warnings.warn("FP16 is not supported on CPU; using FP32 instead")
+File downloaded in memory. Size: 8409893 bytes
+Error: [WinError 2] El sistema no puede encontrar el archivo especificado
+1s
+Post job cleanup.
+Cache hit occurred on the primary key setup-python-Windows-x64-python-3.10.11-pip-366e6b8f511890e6510328acd14b58a86e236d76e1b29db3228c0dc22e45c8e7, not saving cache.
+0s
+Post job cleanup.
+0s
+Cleaning up orphan processes
