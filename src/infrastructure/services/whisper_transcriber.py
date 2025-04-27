@@ -2,12 +2,12 @@
 import whisper
 import tempfile
 import os
+import io
 from src.domain.interfaces.audio_transcriber import AudioTranscriber
 from src.domain.entities.transcript import Transcript
 
 class WhisperTranscriber(AudioTranscriber):
     def transcribe(self, file_input) -> Transcript:
-        # Usar modelo más pequeño
         model = whisper.load_model("tiny")
 
         # Crear directorio temporal si no existe
@@ -20,21 +20,32 @@ class WhisperTranscriber(AudioTranscriber):
         temp_path = temp_file.name
 
         try:
-            # Escribir datos al archivo temporal
-            if hasattr(file_input, 'read'):
+            # Manejar entrada como BytesIO o ruta de archivo
+            if isinstance(file_input, (io.BytesIO, io.BufferedRandom)):
                 temp_file.write(file_input.getvalue())
-            else:
+            elif isinstance(file_input, str):
+                if not os.path.exists(file_input):
+                    raise FileNotFoundError(f"El archivo {file_input} no existe")
                 with open(file_input, 'rb') as f:
                     temp_file.write(f.read())
+            else:
+                raise ValueError("Input debe ser BytesIO o ruta de archivo")
+
             temp_file.flush()
             temp_file.close()
 
             # Transcribir
             result = model.transcribe(temp_path)
-            return Transcript(result["text"], getattr(file_input, 'name', 'memory_file'))
+
+            # Obtener nombre del archivo de la fuente
+            if isinstance(file_input, (io.BytesIO, io.BufferedRandom)):
+                source_name = getattr(file_input, 'name', 'memory_file')
+            else:
+                source_name = os.path.basename(file_input)
+
+            return Transcript(result["text"], source_name)
 
         finally:
-            # Limpiar archivo temporal
             if os.path.exists(temp_path):
                 try:
                     os.unlink(temp_path)
