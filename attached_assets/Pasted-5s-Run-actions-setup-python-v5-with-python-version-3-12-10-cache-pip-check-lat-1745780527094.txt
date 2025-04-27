@@ -1,0 +1,42 @@
+5s
+Run actions/setup-python@v5
+  with:
+    python-version: 3.12.10
+    cache: pip
+    check-latest: false
+    token: ***
+    update-environment: true
+    allow-prereleases: false
+    freethreaded: false
+  env:
+    ACTIONS_STEP_DEBUG: true
+Installed versions
+  Version 3.12.10 was not found in the local cache
+  Version 3.12.10 is available for downloading
+  Download from "https://github.com/actions/python-versions/releases/download/3.12.10-14343898437/python-3.12.10-win32-x64.zip"
+  Extract downloaded archive
+  C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -NoLogo -Sta -NoProfile -NonInteractive -ExecutionPolicy Unrestricted -Command "$ErrorActionPreference = 'Stop' ; try { Add-Type -AssemblyName System.IO.Compression.FileSystem } catch { } ; if ((Get-Command -Name Expand-Archive -Module Microsoft.PowerShell.Archive -ErrorAction Ignore)) { Expand-Archive -LiteralPath 'C:\actions-runner\_work\_temp\python-3.12.10-win32-x64.zip' -DestinationPath 'C:\actions-runner\_work\_temp\bf0615c1-dfd5-435e-a3e4-55d7661b6a41' -Force } else {[System.IO.Compression.ZipFile]::ExtractToDirectory('C:\actions-runner\_work\_temp\python-3.12.10-win32-x64.zip', 'C:\actions-runner\_work\_temp\bf0615c1-dfd5-435e-a3e4-55d7661b6a41', $true) }"
+  Execute installation script
+  Check if Python hostedtoolcache folder exist...
+  
+  Check if current Python version is installed...
+  
+  Python3.12 (x64) was found in C:\actions-runner\_work\_tool\Python...
+  
+  Deleting C:\actions-runner\_work\_tool\Python\3.12.10\x64...
+  
+  Remove registry entries for Python 3.12(x64)...
+  
+  Create Python 3.12.10 folder in C:\actions-runner\_work\_tool\Python
+  
+  Copy Python binaries to C:\actions-runner\_work\_tool\Python\3.12.10\x64
+  
+  Install Python 3.12.10 in C:\actions-runner\_work\_tool\Python...
+  
+  Error: Error happened during Python installation
+  En C:\actions-runner\_work\_temp\bf0615c1-dfd5-435e-a3e4-55d7661b6a41\setup.ps1: 131 Carácter: 5
+  +     Throw "Error happened during Python installation"
+  Error: +     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      + CategoryInfo          : OperationStopped: (Error happened ...on installation:String) [], RuntimeException
+      + FullyQualifiedErrorId : Error happened during Python installation
+  Error: The process 'C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe' failed with exit code 1
