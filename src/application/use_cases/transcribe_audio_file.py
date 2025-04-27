@@ -33,8 +33,28 @@ class TranscribeAudioFileUseCase:
 
         # Verificar que el archivo existe usando la ruta completa
         downloaded_file = Path(downloaded_path)
+
+        #Added file verification
+        total_size = downloaded_file.stat().st_size
+        max_attempts = 10
+        attempts = 0
+        while attempts < max_attempts:
+            if os.path.exists(downloaded_path):
+                current_size = os.path.getsize(downloaded_path)
+                if current_size >= total_size:
+                    break
+            time.sleep(1)
+            attempts += 1
+            print(f"Waiting for file to be completely written... Size: {current_size}/{total_size} bytes")
+
         if not downloaded_file.exists():
             raise FileNotFoundError(f"Downloaded file not found at: {downloaded_path}")
+
+        if os.path.getsize(downloaded_path) < total_size:
+            raise Exception(f"File was not completely written. Expected: {total_size} bytes, Got: {os.path.getsize(downloaded_path)} bytes")
+
+        print(f"File size verification complete: {downloaded_file.stat().st_size} bytes")
+
 
         print(f"File size: {downloaded_file.stat().st_size} bytes")
 
