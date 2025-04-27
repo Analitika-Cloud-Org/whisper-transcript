@@ -20,6 +20,10 @@ class TranscribeAudioFileUseCase:
         downloads_dir.mkdir(exist_ok=True)
         print(f"Created downloads directory at: {downloads_dir.absolute()}")
 
+        # Asegurarse de que el nombre del archivo incluya la extensión
+        if not file_name.lower().endswith('.mp3'):
+            file_name = f"{file_name}.mp3"
+
         file_path = downloads_dir / file_name.replace('[', '_').replace(']', '_')
         print(f"Full file path: {file_path.absolute()}")
         print(f"Attempting to download file to: {file_path.absolute()}")
