@@ -8,6 +8,12 @@ jobs:
   process-file:
     runs-on: self-hosted
     steps:
+      - name: Clean workspace
+        run: |
+          if (Test-Path whisper-transcript) {
+            Remove-Item -Recurse -Force whisper-transcript
+          }
+          
       - name: Checkout code
         uses: actions/checkout@v2
         
