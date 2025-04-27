@@ -38,9 +38,6 @@ class TranscribeAudioFileUseCase:
 
         print(f"File size: {downloaded_file.stat().st_size} bytes")
 
-        # Usar la ruta completa para la transcripción
-        transcript = self.transcriber.transcribe(str(downloaded_file.absolute()))
-
         # Si es un archivo MP4, convertirlo a MP3
         if file_path.suffix.lower() == '.mp4':
             audio_path = file_path.with_suffix('.mp3')
@@ -48,7 +45,8 @@ class TranscribeAudioFileUseCase:
                                                   str(audio_path))
             file_path = audio_path
 
-        transcript = self.transcriber.transcribe(str(file_path))
+        # Usar la ruta completa para la transcripción
+        transcript = self.transcriber.transcribe(str(downloaded_file.absolute()))
 
         # Save transcript
         transcript_file = f"{file_name[:-4]}_transcript.txt"  #removed unnecessary filename variable
