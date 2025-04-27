@@ -8,6 +8,7 @@ from src.domain.entities.transcript import Transcript
 
 class WhisperTranscriber(AudioTranscriber):
     def transcribe(self, file_input) -> Transcript:
+        print(f"Tipo de input recibido en transcribe: {type(file_input)}, valor: {file_input}")
         model = whisper.load_model("tiny")
 
         # Crear directorio temporal si no existe
