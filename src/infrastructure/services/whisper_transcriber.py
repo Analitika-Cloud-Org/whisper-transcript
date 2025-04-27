@@ -14,25 +14,24 @@ class WhisperTranscriber(AudioTranscriber):
         if not isinstance(file_input, io.BytesIO):
             raise ValueError("El input debe ser BytesIO")
 
-        # Crear archivo temporal
-        with tempfile.NamedTemporaryFile(suffix='.mp3', delete=False) as temp_file:
-            temp_path = temp_file.name
-            temp_file.write(file_input.getvalue())
-            temp_file.flush()
+        temp_path = None
+        try:
+            # Crear archivo temporal
+            with tempfile.NamedTemporaryFile(suffix='.mp3', delete=False) as temp_file:
+                temp_path = temp_file.name
+                temp_file.write(file_input.getvalue())
+                temp_file.flush()
 
             # Transcribir
             result = model.transcribe(temp_path)
 
             # Obtener nombre del archivo de la fuente
-            if isinstance(file_input, (io.BytesIO, io.BufferedRandom)):
-                source_name = getattr(file_input, 'name', 'memory_file')
-            else:
-                source_name = os.path.basename(file_input)
+            source_name = getattr(file_input, 'name', 'memory_file')
 
             return Transcript(result["text"], source_name)
 
         finally:
-            if os.path.exists(temp_path):
+            if temp_path and os.path.exists(temp_path):
                 try:
                     os.unlink(temp_path)
                 except Exception as e:
