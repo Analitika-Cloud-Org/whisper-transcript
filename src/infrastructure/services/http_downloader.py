@@ -186,11 +186,24 @@ class HttpDownloader:
             download_response.raise_for_status()
 
             # Save the file
-            with open(output_path, 'wb') as f:
-                for chunk in download_response.iter_content(chunk_size=8192):
-                    f.write(chunk)
+            output_path_abs = os.path.abspath(output_path)
+            print(f"Saving file to absolute path: {output_path_abs}")
 
-            return output_path
+            os.makedirs(os.path.dirname(output_path_abs), exist_ok=True)
+
+            total_size = 0
+            with open(output_path_abs, 'wb') as f:
+                for chunk in download_response.iter_content(chunk_size=8192):
+                    if chunk:
+                        f.write(chunk)
+                        total_size += len(chunk)
+
+            print(f"File saved successfully. Total size: {total_size} bytes")
+
+            if not os.path.exists(output_path_abs):
+                raise FileNotFoundError(f"File was not saved correctly at: {output_path_abs}")
+
+            return output_path_abs
 
         except Exception as e:
             raise Exception(f"Error al descargar el archivo: {str(e)}")

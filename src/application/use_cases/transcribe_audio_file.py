@@ -18,9 +18,18 @@ class TranscribeAudioFileUseCase:
     def execute(self, file_name: str, sharepoint_link: str) -> Transcript:
         downloads_dir = Path("downloads")
         downloads_dir.mkdir(exist_ok=True)
+        print(f"Created downloads directory at: {downloads_dir.absolute()}")
 
         file_path = downloads_dir / file_name
-        self.downloader.download(sharepoint_link, str(file_path))
+        print(f"Attempting to download file to: {file_path.absolute()}")
+
+        downloaded_path = self.downloader.download(sharepoint_link, str(file_path))
+        print(f"File downloaded to: {downloaded_path}")
+
+        if not Path(downloaded_path).exists():
+            raise FileNotFoundError(f"Downloaded file not found at: {downloaded_path}")
+
+        print(f"File size: {Path(downloaded_path).stat().st_size} bytes")
 
         # Si es un archivo MP4, convertirlo a MP3
         if file_path.suffix.lower() == '.mp4':
