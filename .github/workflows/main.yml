@@ -2,6 +2,7 @@ name: SharePoint File Trigger
 on:
   repository_dispatch:
     types: [sharepoint_file_added]
+    workflow_dispatch:
 
 jobs:
   process-file:
@@ -9,18 +10,26 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.12'
+
+      - name: Install FFmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
       - name: Process SharePoint file
         env:
+          SHAREPOINT_CLIENT_ID: ${{ secrets.SHAREPOINT_CLIENT_ID }}
+          SHAREPOINT_CLIENT_SECRET: ${{ secrets.SHAREPOINT_CLIENT_SECRET }}
+          SHAREPOINT_TENANT_ID: ${{ secrets.SHAREPOINT_TENANT_ID }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           SHAREPOINT_NAME_FILE: ${{ github.event.client_payload.NameFile }}
           SHAREPOINT_NAME_FILE_EXTENSION: ${{ github.event.client_payload.NameFileExtension }}
           SHAREPOINT_LINK: ${{ github.event.client_payload.Link }}
         run: |
-          echo "Nuevo archivo detectado:"
-          echo "OwnerRepo: ${{ github.event.repositoryOwner }}"
-          echo "NameRepo: ${{ github.event.repositoryName }}"
-          echo "Link: ${{ github.event.client_payload.Link }}"
-          echo "NameFile: ${{ github.event.client_payload.NameFile }}"
-          echo "NameFileExtension: ${{ github.event.client_payload.NameFileExtension }}"
-
-          python your_script.py "$SHAREPOINT_NAME_FILE" "$SHAREPOINT_NAME_FILE_EXTENSION" "$SHAREPOINT_LINK"
+          python main.py "$SHAREPOINT_NAME_FILE" "$SHAREPOINT_LINK"
