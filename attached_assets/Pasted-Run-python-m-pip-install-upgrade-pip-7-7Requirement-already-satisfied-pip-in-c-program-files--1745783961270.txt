@@ -1,0 +1,59 @@
+Run python -m pip install --upgrade pip
+7
+7Requirement already satisfied: pip in c:\program files\python313\lib\site-packages (25.1)
+8Collecting openai-whisper==20231117 (from -r requirements.txt (line 1))
+9 Downloading openai-whisper-20231117.tar.gz (798 kB)
+10 ------------------------------------- 798.6/798.6 kB 27.2 MB/s eta 0:00:00
+11 Installing build dependencies: started
+12 Installing build dependencies: finished with status 'done'
+13 Getting requirements to build wheel: started
+14 Getting requirements to build wheel: finished with status 'error'
+15 error: subprocess-exited-with-error
+16
+17 Getting requirements to build wheel did not run successfully.
+18 exit code: 1
+19
+20 [25 lines of output]
+21 <string>:5: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+22 Traceback (most recent call last):
+23 File "C:\Program Files\Python313\Lib\site-packages\pip\_vendor\pyproject_hooks\_in_process\_in_process.py", line 389, in <module>
+24 main()
+25 ~~~~^^
+26 File "C:\Program Files\Python313\Lib\site-packages\pip\_vendor\pyproject_hooks\_in_process\_in_process.py", line 373, in main
+27 json_out["return_val"] = hook(**hook_input["kwargs"])
+28 ~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+29 File "C:\Program Files\Python313\Lib\site-packages\pip\_vendor\pyproject_hooks\_in_process\_in_process.py", line 143, in get_requires_for_build_wheel
+30 return hook(config_settings)
+31 File "C:\Windows\Temp\pip-build-env-mf7d9ohs\overlay\Lib\site-packages\setuptools\build_meta.py", line 331, in get_requires_for_build_wheel
+32 return self._get_build_requires(config_settings, requirements=[])
+33 ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+34 File "C:\Windows\Temp\pip-build-env-mf7d9ohs\overlay\Lib\site-packages\setuptools\build_meta.py", line 301, in getbuild_requires
+35 self.run_setup()
+36 ~~~~~~~~~~~~~~^^
+37 File "C:\Windows\Temp\pip-build-env-mf7d9ohs\overlay\Lib\site-packages\setuptools\build_meta.py", line 512, in run_setup
+38 super().run_setup(setup_script=setup_script)
+39 ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+40 File "C:\Windows\Temp\pip-build-env-mf7d9ohs\overlay\Lib\site-packages\setuptools\build_meta.py", line 317, in run_setup
+41 exec(code, locals())
+42 ~~~~^^^^^^^^^^^^^^^^
+43 File "<string>", line 21, in <module>
+44 File "<string>", line 11, in read_version
+45 KeyError: 'version'
+46 [end of output]
+47
+48 note: This error originates from a subprocess, and is likely not a problem with pip.
+49error: subprocess-exited-with-error
+50Getting requirements to build wheel did not run successfully.
+51exit code: 1
+52See above for output.
+53note: This error originates from a subprocess, and is likely not a problem with pip.
+57Error: Process completed with exit code 1.
+
+este es mi requirements.txt:
+openai-whisper==20231117
+requests==2.31.0
+msal==1.26.0
+python-dotenv==1.0.1
+torch==2.2.0
+ffmpeg==1.4
+anthropic==0.17.0
