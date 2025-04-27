@@ -31,10 +31,15 @@ class TranscribeAudioFileUseCase:
         downloaded_path = self.downloader.download(sharepoint_link, str(file_path))
         print(f"File downloaded to: {downloaded_path}")
 
-        if not Path(downloaded_path).exists():
+        # Verificar que el archivo existe usando la ruta completa
+        downloaded_file = Path(downloaded_path)
+        if not downloaded_file.exists():
             raise FileNotFoundError(f"Downloaded file not found at: {downloaded_path}")
 
-        print(f"File size: {Path(downloaded_path).stat().st_size} bytes")
+        print(f"File size: {downloaded_file.stat().st_size} bytes")
+
+        # Usar la ruta completa para la transcripción
+        transcript = self.transcriber.transcribe(str(downloaded_file.absolute()))
 
         # Si es un archivo MP4, convertirlo a MP3
         if file_path.suffix.lower() == '.mp4':
