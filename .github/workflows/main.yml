@@ -52,11 +52,9 @@ jobs:
               Expand-Archive -Path "ffmpeg.zip" -DestinationPath "C:\ffmpeg" -Force
             }
 
-            # Asegurar que está en el PATH
-            if ($env:Path -notlike "*C:\ffmpeg\ffmpeg-master-latest-win64-gpl\bin*") {
-              $env:Path += ";C:\ffmpeg\ffmpeg-master-latest-win64-gpl\bin"
-              [System.Environment]::SetEnvironmentVariable("Path", $env:Path, [System.EnvironmentVariableTarget]::Machine)
-            }
+            # Modificar PATH solo para el proceso actual
+            $env:Path += ";C:\ffmpeg\ffmpeg-master-latest-win64-gpl\bin"
+            Write-Output "PATH actualizado para el proceso actual"
           }
 
           # Comprobar que funciona
